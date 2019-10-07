@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ebdb
+    volumes:
+      - laravel-db:/var/lib/mysql
+    ports:
+      - "3390:3306"
+  web:
+    image: notfoundsam/php-apache-laravel:latest
+    build:
+      context: .
+      dockerfile: DockerfileDev
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9090:80"
+volumes:
+  laravel-db:    
